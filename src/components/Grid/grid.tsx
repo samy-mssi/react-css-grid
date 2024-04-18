@@ -1,26 +1,7 @@
-import React, { ReactNode, useCallback, useEffect, useMemo } from "react";
-import * as CSS from "csstype";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useMediaQuery } from "react-responsive";
-
-interface GridProps {
-  children: ReactNode;
-  style?: React.CSSProperties;
-  columns?: number | CSS.Property.GridTemplateColumns;
-  smallScreenColumns?: number | CSS.Property.GridTemplateColumns;
-  rows: number | CSS.Property.GridTemplateColumns;
-  rowGap?: string;
-  columnGap?: string;
-  className?: string;
-  uniqueClass?: string;
-  alignCenter?: boolean;
-  alignStart?: boolean;
-  height: CSS.Property.Height;
-}
-
-interface Gap {
-  [key: string]: string;
-}
+import { Gap, GridProps } from "./grid.types";
 
 const breakpoints = {
   sm: "576",
