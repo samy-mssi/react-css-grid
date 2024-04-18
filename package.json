@@ -1,10 +1,10 @@
 {
   "name": "react-simple-css-grid",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/types.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
