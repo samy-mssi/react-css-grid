@@ -29,7 +29,7 @@ import Grid from 'react-css-grid';
 You can then use it in your component:
 
 ```
-<Grid columns={2} rows={2} height="200px">
+<Grid columns="1fr 2fr">
   <div>Element 1</div>
   <div>Element 2</div>
   <div>Element 3</div>
