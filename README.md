@@ -9,13 +9,13 @@ This library provides a flexible, responsive grid component for ReactJS. It is w
 ##### Using npm
 
 ```bash
-npm install --save react-css-grid
+npm install --save react-simple-css-grid
 ```
 
 ##### Using yarn
 
 ```bash
-yarn add react-css-grid
+yarn add react-simple-css-grid
 ```
 
 ## Usage
