@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { FC, useCallback, useEffect, useMemo } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useMediaQuery } from "react-responsive";
 import { Gap, GridProps } from "./grid.types";
@@ -18,7 +18,7 @@ const stylesToCSS = (styles: React.CSSProperties) =>
     .map(([key, value]) => `${toCssProperty(key)}:${value};`)
     .join("");
 
-const Grid = ({
+const Grid: FC<GridProps> = ({
   children,
   className,
   style,
@@ -31,7 +31,7 @@ const Grid = ({
   alignCenter,
   alignStart,
   height,
-}: GridProps) => {
+}) => {
   // Check screen size to manage responsive
   const hasWideScreen = useMediaQuery({
     query: `(min-width: ${breakpoints.lg}px)`,
@@ -128,4 +128,5 @@ Grid.defaultProps = {
   rows: "auto",
   height: "fit-content",
 };
+
 export default Grid;
