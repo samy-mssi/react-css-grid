@@ -22,6 +22,10 @@ export default [
         format: "esm",
         sourcemap: true,
       },
+      {
+        dir: "dist",
+        format: "cjs",
+      },
     ],
     plugins: [
       peerDepsExternal(),

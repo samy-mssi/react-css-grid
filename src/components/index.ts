@@ -1,1 +1,1 @@
-export * from "./Grid";
+export { default as Grid, GridContextProvider } from "./Grid";
