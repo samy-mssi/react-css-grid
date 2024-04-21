@@ -1,7 +1,8 @@
-import React, { FC, useCallback, useEffect, useMemo } from "react";
+import React, { FC, useCallback, useContext, useEffect, useMemo } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useMediaQuery } from "react-responsive";
-import { Gap, GridProps } from "./grid.types";
+import { Gap, GridContextConfigurationProps, GridProps } from "./grid.types";
+import { GridContext } from "./grid-context";
 
 const breakpoints = {
   sm: "576",
@@ -28,13 +29,15 @@ const Grid: FC<GridProps> = ({
   rowGap,
   columnGap,
   uniqueClass,
-  alignCenter,
-  alignStart,
+  alignItems,
   height,
 }) => {
+  const configuration = useContext<GridContextConfigurationProps | null>(
+    GridContext
+  );
   // Check screen size to manage responsive
   const hasWideScreen = useMediaQuery({
-    query: `(min-width: ${breakpoints.lg}px)`,
+    query: `(min-width: ${configuration?.minWidth || breakpoints.lg}px)`,
   });
   // Generate unique className
   const uniqueClassName: string = useMemo(
@@ -43,22 +46,25 @@ const Grid: FC<GridProps> = ({
   );
 
   // Get gap from props
-  const getGap = useCallback((g?: string) => {
-    const gaps: Gap[] = [
-      { xs: "0.25rem" },
-      { s: "0.5rem" },
-      { m: "0.75rem" },
-      { l: "1rem" },
-      { xl: "1.5rem" },
-      { xxl: "1.75rem" },
-      { xxxl: "2rem" },
-    ];
-    if (g) {
-      const selectedGap = gaps.find((gap) => gap[g]);
-      return selectedGap ? selectedGap[g] : "1.5rem";
-    }
-    return "1.5rem";
-  }, []);
+  const getGap = useCallback(
+    (g?: string) => {
+      const gaps: Gap[] = configuration?.gaps || [
+        { xs: "0.25rem" },
+        { s: "0.5rem" },
+        { m: "0.75rem" },
+        { l: "1rem" },
+        { xl: "1.5rem" },
+        { xxl: "1.75rem" },
+        { xxxl: "2rem" },
+      ];
+      if (g) {
+        const selectedGap = gaps.find((gap) => gap[g]);
+        return selectedGap ? selectedGap[g] : "1.5rem";
+      }
+      return "1.5rem";
+    },
+    [configuration?.gaps]
+  );
 
   const getColumnPattern = useCallback(() => {
     if (!hasWideScreen) {
@@ -75,13 +81,11 @@ const Grid: FC<GridProps> = ({
       columnGap: getGap(columnGap),
       rowGap: getGap(rowGap),
       height: height,
-      ...(alignCenter && { alignItems: "center" }),
-      ...(alignStart && { alignItems: "start" }),
+      ...(alignItems && { alignItems: alignItems }),
       ...style,
     }),
     [
-      alignCenter,
-      alignStart,
+      alignItems,
       columnGap,
       getColumnPattern,
       getGap,
